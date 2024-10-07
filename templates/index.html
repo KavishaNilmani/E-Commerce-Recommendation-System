@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecommerce Recommendation System</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+   <style>
+
+
+    body {
+
+   background: linear-gradient(to bottom, #e0c3fc, #8ec5fc 50%, #8ec5fc, #e0c3fc); /* Adjusting to ensure a smooth transition */
+
+    height: 100vh; /* Ensure it takes the full height of the viewport */
+    display: flex;
+    flex-direction: column; /* Allow body to be flex */
+    margin: 0; /* Remove default margin */
+
+}
+
+.text-center img {
+    position: absolute; /* Position it absolutely */
+    top: 0; /* Align it to the top */
+    left: 0; /* Align it to the left */
+    width: 100%; /* Make it full width */
+    height: 750px; /* Set height as needed */
+    object-fit: cover; /* Maintain aspect ratio */
+    z-index: -1; /* Send it behind other content */
+}
+
+.navbar {
+    background-color: rgba(128, 128, 128, 0.5); /* Semi-transparent gray */
+    backdrop-filter: none; /* Apply blur effect */
+    position: fixed; /* Keep the navbar fixed at the top */
+    width: 100%; /* Ensure it spans the full width */
+    z-index: 1; /* Bring the navbar above other content */
+    padding: 10px;
+    box-shadow: none; /* Remove shadow if needed */
+    display: flex;
+    justify-content: space-between;
+
+}
+/* Navbar styles */
+<!--.navbar {-->
+<!--  background-color: rgba(128, 128, 128, 0.5); /* Semi-transparent gray */-->
+<!--  display: flex;-->
+<!--  backdrop-filter: none; /* Apply blur effect */-->
+<!--  justify-content: space-between;-->
+<!--  align-items: center;-->
+
+<!--  padding: 10px;-->
+<!--}-->
+.container {
+    margin-top: 70px; /* Adjust to prevent content from hiding under the navbar */
+}
+
+.video-background {
+    width: 100%; /* Set the video to cover the full width of its container */
+    height: 500px; /* Set the height of the video */
+    object-position:center 45%; /* Positioning of the video inside the container */
+    object-fit: cover; /* Ensure the video covers the entire container while maintaining aspect ratio */
+}
+
+
+.nav-link:hover {
+    color: orange !important; /* Change text color on hover */
+}
+
+.nav-link.btn {
+    border-radius: 5px; /* Add rounded corners to buttons */
+}
+
+.modal-content {
+    background-color: rgba(255, 255, 255, 0.95); /* Set modal content background color with slight transparency */
+    color: #000; /* Set modal content text color */
+}
+
+.modal-content.dark {
+    background-color: rgba(0, 0, 0, 0.95); /* Set modal content background color for dark theme */
+    color: #fff; /* Set modal content text color for dark theme */
+}
+
+/* Side Navigation Styles */
+.sidenav {
+    height: 100%; /* Full-height */
+    width: 0; /* Set the width of the sidenav */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top of the page content */
+    top: 0; /* Start from the top */
+    right: 0; /* Position it on the left */
+    background-color: rgba(52, 58, 64, 0.9); /* Dark background with transparency */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* Transition effect when opening/closing */
+    padding-top: 20px; /* Padding from the top */
+    color: #fff; /* Text color */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+}
+
+.sidenav a {
+    padding: 15px 20px; /* Padding for links */
+    text-decoration: none; /* Remove underline */
+    font-size: 16px; /* Font size */
+    color: #ddd; /* Light color for links */
+    display: block; /* Make the links fill the width */
+    transition: 0.3s; /* Transition effect */
+}
+
+.sidenav a:hover {
+    background-color: rgba(73, 80, 87, 0.8); /* Darker background on hover */
+    color: #ffffff; /* White text on hover */
+}
+
+.closebtn {
+    font-size: 24px; /* Increase the close button size */
+    margin-left: 15px; /* Spacing */
+    color: #ffffff; /* White color for the close button */
+}
+
+/* Header styling */
+.drawer-header {
+    padding: 15px 20px; /* Spacing */
+    background-color: rgba(33, 37, 41, 0.9); /* Slightly darker background for header with transparency */
+    text-align: center; /* Center the text */
+}
+
+/* Media query for smaller screens */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+.navbar-buttons {
+    display: flex; /* Align buttons in a row */
+}
+
+.navbar-buttons a {
+    margin-left: 10px; /* Space between buttons */
+}
+
+.ml-auto {
+    margin-left: auto; /* Pushes the buttons to the right */
+}
+
+.footer {
+    background-color: rgba(52, 58, 64, 0.9); /* Dark background with transparency */
+}
+
+.footer h5 {
+    color: #ffffff; /* White color for headings */
+    margin-bottom: 1rem; /* Space below headings */
+}
+
+html, body {
+    height: 100%; /* Full height for body */
+}
+
+body {
+    display: flex;
+    flex-direction: column; /* Flex column for layout */
+}
+
+.content {
+    flex: 1; /* Take up remaining space */
+}
+
+.footer {
+    margin-top: auto; /* Push footer to the bottom */
+}
+
+.footer p,
+.footer a {
+    color: #b0b0b0; /* Muted text color for better readability */
+}
+
+.footer a:hover {
+    color: #ffffff; /* Change link color on hover */
+    text-decoration: underline; /* Underline links on hover */
+}
+
+.footer hr {
+    border: 0; /* Remove default border */
+    height: 1px; /* Set height for the line */
+    background-color: #ffffff; /* White color for the line */
+}
+
+.background-image-container {
+    position: relative; /* Position relative to the navbar */
+    margin-top: 70px; /* Adjust to prevent content from hiding under the navbar */
+}
+
+.product-card {
+    position: relative;
+    overflow: hidden;
+    width: 90%; /* Reducing width of card */
+    margin: 0 auto; /* Centering the card */
+}
+
+.img-container {
+    position: relative;
+    height: 350px; /* Increased height for a taller rectangular shape */
+}
+
+.product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the area while maintaining aspect ratio */
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-img {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-card:hover .overlay {
+    opacity: 1;
+}
+
+.overlay-content {
+    color: white;
+    text-align: center;
+}
+
+.overlay-content {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 20%; /* Align to the left */
+    transform: translateY(-50%); /* Adjust for perfect vertical centering */
+    color: white; /* Change text color if needed */
+    text-align: center; /* Align text to the left */
+    z-index: 1; /* Ensure it’s above the background image */
+}
+
+.overlay-content h5 {
+    margin-bottom: 10px; /* Space below the description */
+}
+.description-container {
+    position: absolute; /* Positioning the container absolutely */
+    left: 50%; /* Center it horizontally */
+    top: 50%; /* Center it vertically */
+    transform: translate(-50%, -50%); /* Shift it back by half its width and height */
+    color: white; /* Text color */
+    text-align: justify; /* Left-align text */
+    z-index: 1; /* Ensure it is above the background */
+    padding: 20px; /* Add some padding around the text */
+    background-color: rgba(0, 0, 0, 0.5); /* Dark background for better readability */
+    border-radius: 10px; /* Rounded corners for aesthetic */
+    width: calc(100% - 40px); /* Optional: Make it responsive by adjusting width */
+    max-width: 800px; /* Optional: Set a maximum width for larger screens */
+}
+.description-container button {
+    display: block; /* Make the button a block element */
+    margin: 20px auto 0; /* Center the button with auto margins on the left and right */
+    text-align: center; /* Center the text within the button */
+}
+.btn-outline-primary {
+    background-color:#00008B; /* Dark blue text color */
+    border: 2px solid #00008B; /* Dark blue border color */
+    color: white; /* No background color */
+}
+
+.btn-outline-primary:hover {
+    color: #00008B; /* Keep the dark blue text color on hover */
+    background-color: transparent; /* No background on hover */
+    border: 2px solid #00008B; /* Keep the dark blue border on hover */
+}
+.product-card {
+  position: relative;
+  overflow: hidden;
+  width: 90%; /* Reducing width of card */
+  margin: 0 auto; /* Centering the card */
+}
+
+.img-container {
+  position: relative;
+  height: 350px; /* Increased height for a taller rectangular shape */
+}
+
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the area while maintaining aspect ratio */
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-img {
+  transform: scale(1.05); /* Slight zoom on hover */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-card:hover .overlay {
+  opacity: 1;
+}
+
+.overlay-content {
+  color: white;
+  text-align: center;
+}
+
+.overlay-content h5 {
+  font-size: 1.4rem; /* Slightly larger text */
+}
+
+.overlay-content p {
+  margin: 5px 0;
+}
+   </style>
+</head>
+<body>
+<style>
+  /* Navbar Container */
+  .custom-navbar {
+background: linear-gradient(45deg, #4776E6, #8E54E9);    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+  }
+
+  /* Navbar Brand */
+  .custom-navbar .navbar-brand {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* Navbar Links */
+  .custom-navbar .nav-link {
+    color: #000000;
+    font-weight: 600;
+    margin: 0 20px;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 8px 15px;
+    border-radius: 8px;
+  }
+
+  /* Hover Effect for Links */
+  .custom-navbar .nav-link:hover {
+    background-color: rgb(162, 160, 255); /* Semi-transparent white */
+    color: #ffffff;
+  }
+
+  /* Sign Up Button */
+  .custom-navbar .btn-signup {
+    background-color: #242435;
+    color: azure;
+    font-weight: 700;
+    border: 3px solid #a1afbf;
+    border-radius: 25px;
+    padding: 8px 20px;
+    transition: all 0.4s ease;
+  }
+
+  /* Sign Up Button Hover */
+  .custom-navbar .btn-signup:hover {
+    background-color: #bed2d5;
+    color: #ffffff;
+    border-color: #ff7e5f;
+    transform: scale(1.1); /* Button enlarges on hover */
+  }
+
+  /* Sign In Button */
+  .custom-navbar .btn-signin {
+    background-color: #242435;
+    color: azure;
+    font-weight: 700;
+    border: 3px solid #ffffff;
+    border-radius: 25px;
+    padding: 8px 20px;
+    transition: all 0.4s ease;
+  }
+
+  /* Sign In Button Hover */
+  .custom-navbar .btn-signin:hover {
+    background-color: #bed2d5;
+    color: #ffffff;
+    border-color: #070755;
+    transform: scale(1.1);
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 992px) {
+    .custom-navbar .navbar-collapse {
+      justify-content: flex-end;
+    }
+
+    .custom-navbar .navbar-nav {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .custom-navbar .nav-item {
+      margin: 10px 0;
+    }
+
+  }
+</style>
+
+<!-- Navbar Structure -->
+<nav class="navbar navbar-expand-lg custom-navbar">
+    {% if signup_message %}
+<!-- Include this in your HTML body -->
+<div class="modal fade" id="signupSuccessModal" tabindex="-1" role="dialog" aria-labelledby="signupSuccessModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signupSuccessModalLabel">Sign Up Successful</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Thank you for signing up! You have successfully created an account.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endif %}
+  <!-- Optional Brand Logo -->
+  <a class="navbar-brand" href="#">TrendPick</a>
+
+  <!-- Navbar toggler for mobile view -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon" style="background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="white" class="bi bi-list" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12.5a.5.5 0 0 1 0-1h11a.5.5 0 0 1 0 1h-11zM2 8a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 8zm0-4.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5z"/></svg>');"></span>
+  </button>
+
+  <!-- Navbar items -->
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <!-- Home link from original navbar -->
+      <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fas fa-home"></i> Home</a>
+      </li>
+
+      <!-- Settings link from original navbar -->
+      <li class="nav-item">
+        <a class="nav-link" href="#" id="settingsLink"><i class="fas fa-cog"></i> Settings</a>
+      </li>
+
+      <!-- About Us link (new) -->
+      <li class="nav-item">
+        <a class="nav-link" href="#"><i class="fas fa-info-circle"></i> About Us</a>
+      </li>
+
+      <!-- Services link (new) -->
+      <li class="nav-item">
+        <a class="nav-link btn btn-signup" href="collaborative"> Collaborative filtering</a>
+      </li>
+
+<!--      &lt;!&ndash; Contact link (new) &ndash;&gt;-->
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link" href="#"><i class="fas fa-phone-alt"></i> Contact</a>-->
+<!--      </li>-->
+
+      <!-- Sign Up Button (Opens modal) -->
+      <li class="nav-item">
+        <a class="nav-link btn btn-signup" href="#" data-toggle="modal" data-target="#signupModal">Sign Up</a>
+      </li>
+
+      <!-- Sign In Button (Opens modal) -->
+      <li class="nav-item">
+        <a class="nav-link btn btn-signin" href="#" data-toggle="modal" data-target="#signinModal">Sign In</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+
+
+<!-- Video -->
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <video class="video-background" autoplay loop muted>
+        <source src="static/video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </div>
+</div>
+
+
+
+<!--&lt;!&ndash; Go To Main Page Button &ndash;&gt;-->
+<!--<div class="text-center mt-5">-->
+<!--  <a  href="main" class="btn btn-primary btn-lg">Go To Main Page</a>-->
+<!--</div>-->
+{% if signup_message %}
+<h5 style="margin-left:42%;margin-top:10px; text:bold;">{{signup_message}}</h5>
+{% endif %}
+<!-- Go To Main Page Button -->
+<div class="text-center mt-5">
+  <a href="main" class="custom-button">Search for Products</a>
+</div>
+<style>
+  /* Button Styling */
+  .custom-button {
+    display: inline-block;
+    padding: 12px 30px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    background-color: transparent; /* Transparent background */
+    border: 2px solid #fff; /* White border */
+    border-radius: 25px; /* Rounded corners */
+    text-decoration: none;
+    transition: all 0.3s ease; /* Smooth transition */
+  }
+
+  /* Button Hover Effect */
+  .custom-button:hover {
+    background-color: #fff; /* White background on hover */
+    color: #ff5e5e; /* Change text color to accent color on hover */
+    border-color: #ff5e5e; /* Change border color */
+
+
+  }
+</style>
+
+
+<div class="container mt-5" id="trending-products">
+  <h2 class="text-center mb-4" style="font-family: 'Arial', sans-serif; font-size: 28px; color: #333; text-transform: uppercase; letter-spacing: 2px; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px;">
+  Trending Products
+</h2>
+<p class="text-center mb-4" style="font-family: 'Arial', sans-serif; font-size: 16px; color: #666; line-height: 1.6; max-width: 600px; margin: 0 auto;">
+  Discover our most popular items that are flying off the shelves right now!
+</p>
+
+  <div class="row mt-4">
+    {% for index, product in trending_products.iterrows() %}
+    <div class="col-lg-4 col-md-6 col-sm-12 mb-4"> <!-- Kept this for medium width but will reduce width via CSS -->
+      <div class="card product-card">
+        <div class="img-container">
+          <img src="{{ random_product_image_urls[index] }}" class="card-img-top product-img" alt="{{ product['Name'] }}">
+          <div class="overlay">
+            <div class="overlay-content">
+              <h5 class="card-title">{{ truncate(product['Name'],15) }}</h5>
+              <p class="card-text">Brand: {{ product['Brand'] }}</p>
+              <p><strong>Price:</strong> {{ random_price }}</p>
+              <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#productModal{{ index }}">Buy Now</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="productModal{{ index }}" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="productModalLabel">{{ product['Name'] }}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-4">
+                <img src="{{ random_product_image_urls[index] }}" class="img-fluid" alt="{{ product['Name'] }}">
+              </div>
+              <div class="col-md-8">
+                <p><strong>Brand:</strong> {{ product['Brand'] }}</p>
+                <p><strong>Review Count:</strong> {{ product['ReviewCount'] }}</p>
+                <p><strong>Rating:</strong> {{ product['Rating'] }}</p>
+                <p><strong>Price:</strong> {{ random_price }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-outline-primary">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- JavaScript for scrolling -->
+<script>
+function scrollToTrendingProducts() {
+    const element = document.getElementById('trending-products');
+    element.scrollIntoView({ behavior: 'smooth' });
+}
+</script>
+
+
+
+
+
+<!-- Bootstrap modal for sign up -->
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signupModalLabel">Sign Up</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/signup" method="post">
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Bootstrap modal for sign in -->
+<div class="modal fade" id="signinModal" tabindex="-1" aria-labelledby="signinModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="signinModalLabel">Sign In</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/signin" method="post">
+          <div class="mb-3">
+            <label for="signinUsername" class="form-label">Username</label>
+            <input type="text" class="form-control" id="signinUsername" name="signinUsername" required>
+          </div>
+          <div class="mb-3">
+            <label for="signinPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="signinPassword" name="signinPassword" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Sign In</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Settings Modal -->
+<div class="modal fade" id="settingsModal" tabindex="-1" role="dialog" aria-labelledby="settingsModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="settingsModalLabel">Settings</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5>Choose Theme:</h5>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="theme" id="defaultTheme" value="default" checked>
+          <label class="form-check-label" for="defaultTheme">
+            Default
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="theme" id="blackTheme" value="black">
+          <label class="form-check-label" for="blackTheme">
+            Black Theme
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="theme" id="greenTheme" value="green">
+          <label class="form-check-label" for="greenTheme">
+            Green Theme
+          </label>
+        </div>
+        <hr>
+        <h5>Zoom:</h5>
+        <button type="button" class="btn btn-primary mr-2" id="zoomIn">Zoom In</button>
+        <button type="button" class="btn btn-primary" id="zoomOut">Zoom Out</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="applyTheme">Apply</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+  // Handle click on Settings link to open the modal
+  document.getElementById('settingsLink').addEventListener('click', function() {
+    $('#settingsModal').modal('show');
+  });
+
+  // Handle theme apply button click
+  document.getElementById('applyTheme').addEventListener('click', function() {
+    // Get the selected theme value
+    var selectedTheme = document.querySelector('input[name="theme"]:checked').value;
+
+    // Apply the selected theme
+    if (selectedTheme === 'black') {
+      document.body.style.backgroundColor = 'black';
+      document.body.style.color = 'white';
+    } else if (selectedTheme === 'green') {
+      document.body.style.backgroundColor = 'green';
+      document.body.style.color = 'white';
+    } else {
+      // Default theme
+      document.body.style.backgroundColor = '#f8f9fa';
+      document.body.style.color = 'black';
+    }
+
+    // Close the modal
+    $('#settingsModal').modal('hide');
+  });
+
+  // Handle zoom in button click
+  document.getElementById('zoomIn').addEventListener('click', function() {
+  document.body.style.zoom = "115%";
+  });
+
+  // Handle zoom out button click
+  document.getElementById('zoomOut').addEventListener('click', function() {
+    document.body.style.zoom = "100%";
+  });
+</script>
+<!-- Footer -->
+    <footer class="footer bg-dark text-white mt-auto">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <h5 class="font-weight-bold">About Us</h5>
+                    <p class="text-muted">We are dedicated to providing the best e-commerce experience. Our mission is to connect customers with quality products.</p>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <h5 class="font-weight-bold">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted">Home</a></li>
+                        <li><a href="#" class="text-muted">About</a></li>
+                        <li><a href="#" class="text-muted">Services</a></li>
+                        <li><a href="#" class="text-muted">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <h5 class="font-weight-bold">Support</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-muted">FAQ</a></li>
+                        <li><a href="#" class="text-muted">Terms of Service</a></li>
+                        <li><a href="#" class="text-muted">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4">
+                    <h5 class="font-weight-bold">Contact Us</h5>
+                    <address class="text-muted">
+                        <strong>Company Name</strong><br>
+                        123 Street, City<br>
+                        Country<br>
+                        <i class="fas fa-phone"></i> Phone: +1234567890<br>
+                        <i class="fas fa-envelope"></i> Email: info@example.com
+                    </address>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-12 text-center">
+                    <hr class="bg-light">
+                    <p class="small text-muted">© 2024 Ecommerce Recommendation System. All Rights Reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

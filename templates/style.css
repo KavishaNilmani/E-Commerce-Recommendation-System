@@ -1,0 +1,306 @@
+
+    body {
+    background-color: #f8f9fa;
+    font-family: 'Roboto', sans-serif;
+    margin: 0; /* Remove default margin */
+}
+
+.text-center img {
+    position: absolute; /* Position it absolutely */
+    top: 0; /* Align it to the top */
+    left: 0; /* Align it to the left */
+    width: 100%; /* Make it full width */
+    height: 750px; /* Set height as needed */
+    object-fit: cover; /* Maintain aspect ratio */
+    z-index: -1; /* Send it behind other content */
+}
+
+.navbar {
+    background-color: none ; /* Semi-transparent blue background */
+    backdrop-filter: none; /* Apply blur effect */
+    position: fixed; /* Keep the navbar fixed at the top */
+    width: 100%; /* Ensure it spans the full width */
+    z-index: 1000; /* Bring the navbar above other content */
+    padding: 10px;
+    box-shadow: none; /* Remove shadow if needed */
+}
+
+.container {
+    margin-top: 70px; /* Adjust to prevent content from hiding under the navbar */
+}
+
+.video-background {
+    width: 100%;
+    height: 400px; /* Set the height of the video here */
+    object-position: 25% top;
+    object-fit: cover; /* Ensure the video covers the entire container */
+}
+
+.nav-link:hover {
+    color: orange !important; /* Change text color on hover */
+}
+
+.nav-link.btn {
+    border-radius: 5px; /* Add rounded corners to buttons */
+}
+
+.modal-content {
+    background-color: rgba(255, 255, 255, 0.95); /* Set modal content background color with slight transparency */
+    color: #000; /* Set modal content text color */
+}
+
+.modal-content.dark {
+    background-color: rgba(0, 0, 0, 0.95); /* Set modal content background color for dark theme */
+    color: #fff; /* Set modal content text color for dark theme */
+}
+
+/* Side Navigation Styles */
+.sidenav {
+    height: 100%; /* Full-height */
+    width: 0; /* Set the width of the sidenav */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top of the page content */
+    top: 0; /* Start from the top */
+    right: 0; /* Position it on the left */
+    background-color: rgba(52, 58, 64, 0.9); /* Dark background with transparency */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* Transition effect when opening/closing */
+    padding-top: 20px; /* Padding from the top */
+    color: #fff; /* Text color */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+}
+
+.sidenav a {
+    padding: 15px 20px; /* Padding for links */
+    text-decoration: none; /* Remove underline */
+    font-size: 16px; /* Font size */
+    color: #ddd; /* Light color for links */
+    display: block; /* Make the links fill the width */
+    transition: 0.3s; /* Transition effect */
+}
+
+.sidenav a:hover {
+    background-color: rgba(73, 80, 87, 0.8); /* Darker background on hover */
+    color: #ffffff; /* White text on hover */
+}
+
+.closebtn {
+    font-size: 24px; /* Increase the close button size */
+    margin-left: 15px; /* Spacing */
+    color: #ffffff; /* White color for the close button */
+}
+
+/* Header styling */
+.drawer-header {
+    padding: 15px 20px; /* Spacing */
+    background-color: rgba(33, 37, 41, 0.9); /* Slightly darker background for header with transparency */
+    text-align: center; /* Center the text */
+}
+
+/* Media query for smaller screens */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+.navbar-buttons {
+    display: flex; /* Align buttons in a row */
+}
+
+.navbar-buttons a {
+    margin-left: 10px; /* Space between buttons */
+}
+
+.ml-auto {
+    margin-left: auto; /* Pushes the buttons to the right */
+}
+
+.footer {
+    background-color: rgba(52, 58, 64, 0.9); /* Dark background with transparency */
+}
+
+.footer h5 {
+    color: #ffffff; /* White color for headings */
+    margin-bottom: 1rem; /* Space below headings */
+}
+
+html, body {
+    height: 100%; /* Full height for body */
+}
+
+body {
+    display: flex;
+    flex-direction: column; /* Flex column for layout */
+}
+
+.content {
+    flex: 1; /* Take up remaining space */
+}
+
+.footer {
+    margin-top: auto; /* Push footer to the bottom */
+}
+
+.footer p,
+.footer a {
+    color: #b0b0b0; /* Muted text color for better readability */
+}
+
+.footer a:hover {
+    color: #ffffff; /* Change link color on hover */
+    text-decoration: underline; /* Underline links on hover */
+}
+
+.footer hr {
+    border: 0; /* Remove default border */
+    height: 1px; /* Set height for the line */
+    background-color: #ffffff; /* White color for the line */
+}
+
+.background-image-container {
+    position: relative; /* Position relative to the navbar */
+    margin-top: 70px; /* Adjust to prevent content from hiding under the navbar */
+}
+
+.product-card {
+    position: relative;
+    overflow: hidden;
+    width: 90%; /* Reducing width of card */
+    margin: 0 auto; /* Centering the card */
+}
+
+.img-container {
+    position: relative;
+    height: 350px; /* Increased height for a taller rectangular shape */
+}
+
+.product-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the image covers the area while maintaining aspect ratio */
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-img {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-card:hover .overlay {
+    opacity: 1;
+}
+
+.overlay-content {
+    color: white;
+    text-align: center;
+}
+
+.overlay-content {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 10%; /* Align to the left */
+    transform: translateY(-50%); /* Adjust for perfect vertical centering */
+    color: white; /* Change text color if needed */
+    text-align: left; /* Align text to the left */
+    z-index: 1; /* Ensure it’s above the background image */
+}
+
+.overlay-content h5 {
+    margin-bottom: 10px; /* Space below the description */
+}
+.description-container {
+    position: absolute; /* Positioning the container absolutely */
+    left: 50%; /* Center it horizontally */
+    top: 50%; /* Center it vertically */
+    transform: translate(-50%, -50%); /* Shift it back by half its width and height */
+    color: white; /* Text color */
+    text-align: justify; /* Left-align text */
+    z-index: 1; /* Ensure it is above the background */
+    padding: 20px; /* Add some padding around the text */
+    background-color: rgba(0, 0, 0, 0.5); /* Dark background for better readability */
+    border-radius: 10px; /* Rounded corners for aesthetic */
+    width: calc(100% - 40px); /* Optional: Make it responsive by adjusting width */
+    max-width: 800px; /* Optional: Set a maximum width for larger screens */
+}
+.description-container button {
+    display: block; /* Make the button a block element */
+    margin: 20px auto 0; /* Center the button with auto margins on the left and right */
+    text-align: center; /* Center the text within the button */
+}
+.btn-outline-primary {
+    background-color:#00008B; /* Dark blue text color */
+    border: 2px solid #00008B; /* Dark blue border color */
+    color: grey; /* No background color */
+}
+
+.btn-outline-primary:hover {
+    color: #00008B; /* Keep the dark blue text color on hover */
+    background-color: transparent; /* No background on hover */
+    border: 2px solid #00008B; /* Keep the dark blue border on hover */
+}
+.product-card {
+  position: relative;
+  overflow: hidden;
+  width: 90%; /* Reducing width of card */
+  margin: 0 auto; /* Centering the card */
+}
+
+.img-container {
+  position: relative;
+  height: 350px; /* Increased height for a taller rectangular shape */
+}
+
+.product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the area while maintaining aspect ratio */
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover .product-img {
+  transform: scale(1.05); /* Slight zoom on hover */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-card:hover .overlay {
+  opacity: 1;
+}
+
+.overlay-content {
+  color: white;
+  text-align: center;
+}
+
+.overlay-content h5 {
+  font-size: 1.4rem; /* Slightly larger text */
+}
+
+.overlay-content p {
+  margin: 5px 0;
+}
